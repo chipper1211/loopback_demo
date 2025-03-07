@@ -9,6 +9,7 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
+import { RestBindings } from '@loopback/rest';
 
 export {ApplicationConfig};
 
@@ -17,7 +18,7 @@ export class ProductServiceApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
-
+    this.bind(RestBindings.PORT).to(3000);
     // Set up the custom sequence
     this.sequence(MySequence);
 

@@ -13,13 +13,12 @@ import { RestBindings } from '@loopback/rest';
 
 export {ApplicationConfig};
 
-export class GatewayServiceApplication extends BootMixin(
+export class OrderServiceApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
-    this.bind(RestBindings.PORT).to(3002);
-
+    this.bind(RestBindings.PORT).to(3001);
     // Set up the custom sequence
     this.sequence(MySequence);
 
