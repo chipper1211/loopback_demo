@@ -40,19 +40,21 @@ async getProductsWithUsers(): Promise<any[]> {
     
     const orders = ordersResponse.data;
 
-    // Combine products with their respective users and orders
     const combined = products.map((product: any) => {
+      // ✅ Filter orders based on productId
       const productOrders = orders.filter((order: any) => order.productId === product.id);
-      const productUsers = users.filter((user: any) => 
-        productOrders.some((order: any) => order.userId === user.id)
-      );
+      
+      // ✅ Filter users based on id (not productId)
+      const productUsers = users.filter((user: any) => user.id === product.id);
+      
+      // ✅ Combine all data into one object
       return {
         ...product,
-        users: productUsers,
         orders: productOrders,
+        users: productUsers
       };
     });
-
+    
     return combined;
 
   } catch (error) {
