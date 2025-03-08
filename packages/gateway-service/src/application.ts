@@ -18,7 +18,7 @@ export class GatewayServiceApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
-    this.bind(RestBindings.PORT).to(3002);
+    this.bind(RestBindings.PORT).to(3003);
 
     // Set up the custom sequence
     this.sequence(MySequence);
