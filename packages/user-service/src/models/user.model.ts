@@ -13,28 +13,29 @@ export class User extends Entity {
 
   @property({
     type: 'string',
-    required: true,
   })
   name: string;
 
   @property({
     type: 'string',
-    required: true,
   })
   email: string;
 
   @property({
     type: 'string',
-    required: true,
+  })
+  password: string;
+
+  @property({
+    type: 'string',
   })
   role: RoleEnum;
 
   @FormattedDate()
-  createdon: string;
+  createdOn: string;
 
   @FormattedDate()
-  modifiedon: string;
-
+  modifiedOn: string;
 
   constructor(data?: Partial<User>) {
     super(data);

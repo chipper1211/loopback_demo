@@ -1,7 +1,9 @@
 import {get} from '@loopback/rest';
 import axios from 'axios';
 import {HttpErrors} from '@loopback/rest';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class CatalogController {
   
   @get('/products-with-users')
@@ -41,13 +43,10 @@ async getProductsWithUsers(): Promise<any[]> {
     const orders = ordersResponse.data;
 
     const combined = products.map((product: any) => {
-      // ✅ Filter orders based on productId
       const productOrders = orders.filter((order: any) => order.productId === product.id);
       
-      // ✅ Filter users based on id (not productId)
       const productUsers = users.filter((user: any) => user.id === product.id);
       
-      // ✅ Combine all data into one object
       return {
         ...product,
         orders: productOrders,
