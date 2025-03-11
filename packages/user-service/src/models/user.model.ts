@@ -24,11 +24,6 @@ export class User extends Entity {
   @property({
     type: 'string',
   })
-  password: string;
-
-  @property({
-    type: 'string',
-  })
   role: RoleEnum;
 
   @FormattedDate()
