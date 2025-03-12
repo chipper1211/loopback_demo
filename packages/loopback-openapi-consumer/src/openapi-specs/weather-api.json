@@ -1,0 +1,189 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Sample Weather API",
+      "description": "A simple API to get weather information",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://api.example.com/v1"
+      }
+    ],
+    "paths": {
+      "/weather/{city}": {
+        "get": {
+          "summary": "Get weather information for a city",
+          "description": "Returns current weather data for the specified city",
+          "operationId": "getWeatherByCity",
+          "parameters": [
+            {
+              "name": "city",
+              "in": "path",
+              "required": true,
+              "description": "Name of the city",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Weather information for the city",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WeatherResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "City not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/forecast/{city}": {
+        "get": {
+          "summary": "Get weather forecast for a city",
+          "description": "Returns 5-day forecast for the specified city",
+          "operationId": "getForecastByCity",
+          "parameters": [
+            {
+              "name": "city",
+              "in": "path",
+              "required": true,
+              "description": "Name of the city",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Forecast information for the city",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ForecastResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "City not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "WeatherResponse": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "example": "New York"
+            },
+            "temperature": {
+              "type": "number",
+              "format": "float",
+              "example": 22.5
+            },
+            "humidity": {
+              "type": "integer",
+              "example": 65
+            },
+            "windSpeed": {
+              "type": "number",
+              "format": "float",
+              "example": 5.2
+            },
+            "description": {
+              "type": "string",
+              "example": "Partly cloudy"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2025-03-12T14:30:00Z"
+            }
+          }
+        },
+        "ForecastResponse": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "example": "New York"
+            },
+            "forecast": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2025-03-13"
+                  },
+                  "temperature": {
+                    "type": "object",
+                    "properties": {
+                      "min": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 18.5
+                      },
+                      "max": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 25.8
+                      }
+                    }
+                  },
+                  "humidity": {
+                    "type": "integer",
+                    "example": 70
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Sunny"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ErrorResponse": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "integer",
+              "example": 404
+            },
+            "message": {
+              "type": "string",
+              "example": "City not found"
+            }
+          }
+        }
+      }
+    }
+  }
