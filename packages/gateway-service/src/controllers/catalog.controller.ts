@@ -1,4 +1,4 @@
-import {get} from '@loopback/rest';
+import {get, param} from '@loopback/rest';
 import axios from 'axios';
 import {HttpErrors} from '@loopback/rest';
 import { authenticate } from '@loopback/authentication';
@@ -121,4 +121,55 @@ export class CatalogController {
       throw new HttpErrors.InternalServerError('Internal Server Error');
     }
   }
+
+@requireRoles([RoleEnum.SUPERADMIN, RoleEnum.ADMIN])
+@get('/weather/{city}')
+async getWeatherByCity(
+  @param.path.string('city') city: string
+): Promise<any> {
+  try {
+    // Fetch weather data from weather-service
+    let weatherResponse;
+    try {
+      weatherResponse = await axios.get(`http://127.0.0.1:3004/api/example/v1/weather/${city}`);
+    } catch (error) {
+      console.error('Failed to connect to weather-service:', error.message);
+      throw new HttpErrors.ServiceUnavailable('Weather service is unavailable');
+    }
+    
+    return weatherResponse.data;
+  } catch (error) {
+    if (error instanceof HttpErrors.HttpError) {
+      throw error;
+    }
+    console.error('Unexpected error:', error);
+    throw new HttpErrors.InternalServerError('Internal Server Error');
+  }
+}
+
+@requireRoles([RoleEnum.SUPERADMIN, RoleEnum.ADMIN])
+@get('/forecast/{city}')
+async getForecastByCity(
+  @param.path.string('city') city: string
+): Promise<any> {
+  try {
+    // Fetch forecast data from weather-service
+    let forecastResponse;
+    try {
+      forecastResponse = await axios.get(`http://127.0.0.1:3004/api/example/v1/forecast/${city}`);
+    } catch (error) {
+      console.error('Failed to connect to weather-service:', error.message);
+      throw new HttpErrors.ServiceUnavailable('Weather service is unavailable');
+    }
+    
+    return forecastResponse.data;
+  } catch (error) {
+    if (error instanceof HttpErrors.HttpError) {
+      throw error;
+    }
+    console.error('Unexpected error:', error);
+    throw new HttpErrors.InternalServerError('Internal Server Error');
+  }
+}
+
 }

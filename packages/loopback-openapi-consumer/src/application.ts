@@ -7,6 +7,7 @@ import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
 import { WeatherApiServiceProvider } from './services/weather-api.service';
+import { RestBindings } from '@loopback/rest';
 
 export {ApplicationConfig};
 
@@ -15,6 +16,8 @@ export class LoopbackOpenapiConsumerApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
+
+    this.bind(RestBindings.PORT).to(3004);
 
     // Set up the custom sequence
     this.sequence(MySequence);

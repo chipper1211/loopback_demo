@@ -4,7 +4,7 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'weatherApi',
   connector: 'rest',
-  baseURL: 'http://localhost:3000/api/example/v1',
+  baseURL: 'http://127.0.0.1:3004/api/example/v1',
   crud: false,
   options: {
     headers: {
@@ -16,7 +16,7 @@ const config = {
     {
       template: {
         method: 'GET',
-        url: 'http://localhost:3000/api/example/v1/weather/{city}',
+        url: 'http://127.0.0.1:3004/api/example/v1/weather/{city}',
         responsePath: '$',
       },
       functions: {
@@ -26,7 +26,7 @@ const config = {
     {
       template: {
         method: 'GET',
-        url: 'http://localhost:3000/api/example/v1/forecast/{city}',
+        url: 'http://127.0.0.1:3004/api/example/v1/forecast/{city}',
         responsePath: '$',
       },
       functions: {
