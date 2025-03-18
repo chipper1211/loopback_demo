@@ -6,7 +6,7 @@ import { requireRoles } from '../decorators/role-authorization';
 import {RoleEnum} from '../enums/role.enum';
 import { inject } from '@loopback/core';
 import {SecurityBindings, UserProfile} from '@loopback/security'
-import { not } from 'should';
+//import { not } from 'should';
 
 @authenticate('jwt')
 export class CatalogController {
