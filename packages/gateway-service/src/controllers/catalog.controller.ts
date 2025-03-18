@@ -6,6 +6,7 @@ import { requireRoles } from '../decorators/role-authorization';
 import {RoleEnum} from '../enums/role.enum';
 import { inject } from '@loopback/core';
 import {SecurityBindings, UserProfile} from '@loopback/security'
+import { not } from 'should';
 
 @authenticate('jwt')
 export class CatalogController {
@@ -163,6 +164,54 @@ async getForecastByCity(
     }
     
     return forecastResponse.data;
+  } catch (error) {
+    if (error instanceof HttpErrors.HttpError) {
+      throw error;
+    }
+    console.error('Unexpected error:', error);
+    throw new HttpErrors.InternalServerError('Internal Server Error');
+  }
+}
+
+@requireRoles([RoleEnum.SUPERADMIN, RoleEnum.ADMIN])
+@get('/notifications/{userId}')
+async getNotifications(
+  @param.path.number('userId') userId: number
+): Promise<any> {
+  try {
+    let notificationResponse;
+    try {
+      notificationResponse = await axios.get(`https://127.0.0.1:3005/user/${userId}`);
+    } catch (error) {
+      console.error('Failed to connect with notification-service: ', error.message);
+      throw new HttpErrors.ServiceUnavailable('Notification Service is Unavailable');
+    }
+
+    return notificationResponse.data;
+  } catch (error) {
+    if (error instanceof HttpErrors.HttpError) {
+      throw error;
+    }
+    console.error('Unexpected error:', error);
+    throw new HttpErrors.InternalServerError('Internal Server Error');
+  }
+}
+
+@requireRoles([RoleEnum.SUPERADMIN, RoleEnum.ADMIN])
+@get('/chats/{userId}')
+async getChats(
+  @param.path.number('userId') userId: number
+): Promise<any> {
+  try {
+    let chatResponse;
+    try {
+      chatResponse = await axios.get(`https://127.0.0.1:3006/messages/${userId}`);
+    } catch (error) {
+      console.error('Failed to connect with Chat-Service: ', error.message);
+      throw new HttpErrors.ServiceUnavailable('Chat Service is Unavailable');
+    }
+
+    return chatResponse.data;
   } catch (error) {
     if (error instanceof HttpErrors.HttpError) {
       throw error;
