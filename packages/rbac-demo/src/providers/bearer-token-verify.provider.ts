@@ -2,7 +2,6 @@ import {Provider} from '@loopback/context';
 import {HttpErrors} from '@loopback/rest';
 import {verify} from 'jsonwebtoken';
 import {VerifyFunction} from 'loopback4-authentication';
-import {User} from '../models/user.model';
 import {MemoryDataProvider} from '../providers/memory-data.provider';
 
 export class BearerTokenVerifyProvider implements Provider<VerifyFunction.BearerFn>

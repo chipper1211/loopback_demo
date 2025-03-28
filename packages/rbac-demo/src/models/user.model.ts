@@ -12,7 +12,7 @@ export class User extends Entity implements IAuthUser, UserPermissionsOverride<s
     id: true,
     generated: true,
   })
-  id?: number;
+  id: number;
 
   @property({
     type: 'string',
@@ -58,8 +58,8 @@ export class User extends Entity implements IAuthUser, UserPermissionsOverride<s
   })
   permissions: UserPermission[];
 
-  getId(): number | string {
-    return this.id ?? 0;
+  getIdentifier(): string | undefined {
+    return this.id.toString() ??  0;
   }
 
   getIdObject(): object {

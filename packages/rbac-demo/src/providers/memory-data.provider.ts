@@ -35,7 +35,7 @@ export class MemoryDataProvider {
       roleId: 3,
       permissions: [
         new UserPermission({
-          permission: PermissionKeys.CreateProduct,
+          permission: PermissionKeys.ViewAnyUser,
           allowed: true,
         }),
       ],
@@ -53,10 +53,6 @@ export class MemoryDataProvider {
         PermissionKeys.UpdateOwnUser,
         PermissionKeys.UpdateAnyUser,
         PermissionKeys.DeleteUser,
-        PermissionKeys.CreateProduct,
-        PermissionKeys.ViewProduct,
-        PermissionKeys.UpdateProduct,
-        PermissionKeys.DeleteProduct,
         PermissionKeys.AccessAdminPanel,
         PermissionKeys.ManageRoles,
       ],
@@ -68,9 +64,6 @@ export class MemoryDataProvider {
         PermissionKeys.ViewOwnUser,
         PermissionKeys.ViewAnyUser,
         PermissionKeys.UpdateOwnUser,
-        PermissionKeys.CreateProduct,
-        PermissionKeys.ViewProduct,
-        PermissionKeys.UpdateProduct,
       ],
     }),
     new Role({
@@ -79,7 +72,6 @@ export class MemoryDataProvider {
       permissions: [
         PermissionKeys.ViewOwnUser,
         PermissionKeys.UpdateOwnUser,
-        PermissionKeys.ViewProduct,
       ],
     }),
   ];

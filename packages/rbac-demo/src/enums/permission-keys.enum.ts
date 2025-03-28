@@ -6,13 +6,7 @@ export enum PermissionKeys {
     UpdateOwnUser = 'UpdateOwnUser',
     UpdateAnyUser = 'UpdateAnyUser',
     DeleteUser = 'DeleteUser',
-  
-    // Product permissions
-    CreateProduct = 'CreateProduct',
-    ViewProduct = 'ViewProduct',
-    UpdateProduct = 'UpdateProduct',
-    DeleteProduct = 'DeleteProduct',
-  
+   
     // Admin permissions
     AccessAdminPanel = 'AccessAdminPanel',
     ManageRoles = 'ManageRoles',
